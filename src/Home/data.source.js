@@ -113,7 +113,7 @@ export const Nav30DataSource = {
                 <span>
                   <span>
                     <span>
-                      <p>Đăng ký</p>
+                      <p>Giới thiệu</p>
                     </span>
                   </span>
                 </span>
@@ -214,7 +214,7 @@ export const Content00DataSource = {
         name: "title",
         children: (
           <span>
-            <p>回收项目</p>
+            <p>Bạn được gì khi đến với chúng tôi</p>
           </span>
         ),
       },
@@ -244,7 +244,7 @@ export const Content00DataSource = {
                 <span>
                   <span>
                     <span>
-                      <p>电梯回收</p>
+                      <p>Tài chính</p>
                     </span>
                   </span>
                 </span>
@@ -254,7 +254,7 @@ export const Content00DataSource = {
               name: "content",
               children: (
                 <span>
-                  <p>Elevator recovery</p>
+                  <p>Độ tin cậy về tài chính</p>
                 </span>
               ),
             },
@@ -280,7 +280,7 @@ export const Content00DataSource = {
               className: "content0-block-title",
               children: (
                 <span>
-                  <p>铁铝铜回收</p>
+                  <p>Kế hoạch</p>
                 </span>
               ),
             },
@@ -290,7 +290,7 @@ export const Content00DataSource = {
                 <span>
                   <span>
                     <span>
-                      <p>Iron copper recovery</p>
+                      <p>Định sẵn kế hoạch</p>
                     </span>
                   </span>
                 </span>
@@ -318,7 +318,7 @@ export const Content00DataSource = {
               className: "content0-block-title",
               children: (
                 <span>
-                  <p>不锈钢回收</p>
+                  <p>Thời gian</p>
                 </span>
               ),
             },
@@ -326,7 +326,7 @@ export const Content00DataSource = {
               name: "content",
               children: (
                 <span>
-                  <p>Stainless steel recovery</p>
+                  <p>Tối ưu thời gian</p>
                 </span>
               ),
             },
@@ -353,7 +353,7 @@ export const Content00DataSource = {
               children: (
                 <span>
                   <span>
-                    <p>工程拆除</p>
+                    <p>Công sức</p>
                   </span>
                 </span>
               ),
@@ -362,7 +362,7 @@ export const Content00DataSource = {
               name: "content",
               children: (
                 <span>
-                  <p>Engineering dismantling</p>
+                  <p>Tối ưu công sức</p>
                 </span>
               ),
             },
@@ -389,7 +389,7 @@ export const Content00DataSource = {
               children: (
                 <span>
                   <span>
-                    <p>中央空调回收</p>
+                    <p>Chất lượng</p>
                   </span>
                 </span>
               ),
@@ -398,7 +398,7 @@ export const Content00DataSource = {
               name: "content",
               children: (
                 <span>
-                  <p>Air conditioning recovery</p>
+                  <p>Chất lượng tốt nhất trên thị trường</p>
                 </span>
               ),
             },
@@ -419,7 +419,7 @@ export const Content50DataSource = {
         name: "title",
         children: (
           <span>
-            <p>成功案例</p>
+            <p>Hình ảnh minh họa</p>
           </span>
         ),
         className: "title-h1",
@@ -439,9 +439,9 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://t.alipayobjects.com/images/rmsweb/T11aVgXc4eXXXXXXXX.svg",
+              "http://phongkhamdakhoathegioi.vn/upload/hinhanh/trang-thiet-bi-phong-kham-3.JPG",
           },
-          content: { children: "Ant Design" },
+          content: { children: "Đặt lịch trước" },
         },
       },
       {
@@ -453,9 +453,9 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://zos.alipayobjects.com/rmsportal/faKjZtrmIbwJvVR.svg",
+              "https://lh3.googleusercontent.com/proxy/jz8RMU91lLZ65MNrmzIf0Wf0uQGFymEXnR8V2BWxPSO7OqvLvLnLSFF7kjWspCZhybsHMPmFVSQQKvizWIE4P4QhoN30eK1AIUiyTcJMCsGIIBJN86c0et26c7W5_17SiNU4SGyo9uz9NMk",
           },
-          content: { children: "Ant Motion" },
+          content: { children: "Không gian riêng tư" },
         },
       },
       {
@@ -467,9 +467,9 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://t.alipayobjects.com/images/rmsweb/T11aVgXc4eXXXXXXXX.svg",
+              "http://phongkhamanphuc.vn/wp-content/uploads/2015/03/IMG_2740.jpg",
           },
-          content: { children: "Ant Design" },
+          content: { children: "Bác sĩ nhiệt tâm" },
         },
       },
       {
@@ -481,9 +481,9 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://zos.alipayobjects.com/rmsportal/faKjZtrmIbwJvVR.svg",
+              "https://lh3.googleusercontent.com/proxy/oFvz-X8cwtJXPRF9Q3zXd_P8I70MMExZuQ7fero3fVN8s9KGUtSthid0X3bca47ROrgjmLFHO4j5UKzOAzcUtltCiaKNk5jNtkWcDBlgiQLRye-xaA",
           },
-          content: { children: "Ant Motion" },
+          content: { children: "Lễ tân nhiệt tình" },
         },
       },
       {
@@ -495,9 +495,9 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://t.alipayobjects.com/images/rmsweb/T11aVgXc4eXXXXXXXX.svg",
+              "https://vatlytrilieuhoanam.com/wp-content/uploads/2019/09/69054713_2338942789767270_5527396818578571264_n.jpg",
           },
-          content: { children: "Ant Design" },
+          content: { children: "Đội ngủ uy tín" },
         },
       },
       {
@@ -509,9 +509,9 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://zos.alipayobjects.com/rmsportal/faKjZtrmIbwJvVR.svg",
+              "https://goldenhealthcarevn.com/wp-content/uploads/2019/03/TIEU-HOA-2.jpg",
           },
-          content: { children: "Ant Motion" },
+          content: { children: "Công nghệ hiện đại" },
         },
       },
       {
@@ -523,9 +523,9 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://t.alipayobjects.com/images/rmsweb/T11aVgXc4eXXXXXXXX.svg",
+              "https://product.hstatic.net/1000152908/product/ryu_6268_master.jpg",
           },
-          content: { children: "Ant Design" },
+          content: { children: "Thiết bị đầy đủ" },
         },
       },
       {
@@ -537,9 +537,9 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://zos.alipayobjects.com/rmsportal/faKjZtrmIbwJvVR.svg",
+              "https://lh3.googleusercontent.com/proxy/yy3Oc9QB4XeC8Ab03j5RnnQTG1e8bncO0Fl0NPOdi1ypA0ZJZW6CNAhzI89xILnn-89j4l_RKv8neG5fp90fgN_37VSo9xpKWF60svzCIck0",
           },
-          content: { children: "Ant Motion" },
+          content: { children: "Minh bạch" },
         },
       },
     ],
@@ -556,7 +556,7 @@ export const Content30DataSource = {
         name: "title",
         children: (
           <span>
-            <p>公司简介</p>
+            <p>Quy trình</p>
           </span>
         ),
         className: "title-h1",
@@ -568,7 +568,7 @@ export const Content30DataSource = {
           <span>
             <span>
               <span>
-                <h2>苏州子浩物资回收有限公司</h2>
+                <h2>Các bước sử dụng hệ thống</h2>
               </span>
             </span>
           </span>
@@ -597,7 +597,7 @@ export const Content30DataSource = {
               <span>
                 <span>
                   <span>
-                    <p>回收项目</p>
+                    <p>Đăng ký tài khoản</p>
                   </span>
                 </span>
               </span>
@@ -608,7 +608,8 @@ export const Content30DataSource = {
             children: (
               <span>
                 <p>
-                  电梯回收，中央空调回收，废旧物资回收，机械设备回收，厨房、宾馆设备等。
+                  Bạn cần được đăng ký tài khoản trên hệ thống để có thể sử dụng
+                  các chức năng như đặt lịch, chọn phòng khám...
                 </p>
               </span>
             ),
@@ -631,7 +632,7 @@ export const Content30DataSource = {
             className: "content3-title",
             children: (
               <span>
-                <p>企业精神</p>
+                <p>Tìm kiếm</p>
               </span>
             ),
           },
@@ -639,7 +640,10 @@ export const Content30DataSource = {
             className: "content3-content",
             children: (
               <span>
-                <p>开拓进取、锐意创新、刻意求真、崇尚完美。</p>
+                <p>
+                  Bạn sẽ được chọn các chức năng sau: chọn chuyên môn của bác
+                  sĩ, chọn giờ khám, chọn bác sĩ mà bạn mong muốn
+                </p>
               </span>
             ),
           },
@@ -661,7 +665,7 @@ export const Content30DataSource = {
             className: "content3-title",
             children: (
               <span>
-                <p>服务宗旨</p>
+                <p>Đặt lịch</p>
               </span>
             ),
           },
@@ -669,7 +673,10 @@ export const Content30DataSource = {
             className: "content3-content",
             children: (
               <span>
-                <p>价格合理、信守承诺、安全快捷 、高效。</p>
+                <p>
+                  Sau khi chọn xong, bạn cần đặt lịch và theo giỏi lịch khám của
+                  bạn
+                </p>
               </span>
             ),
           },
@@ -692,7 +699,7 @@ export const Content30DataSource = {
             children: (
               <span>
                 <span>
-                  <p>企业原则</p>
+                  <p>Kết thúc</p>
                 </span>
               </span>
             ),
@@ -702,8 +709,8 @@ export const Content30DataSource = {
             children: (
               <span>
                 <p>
-                  讲诚信、以信誉求发展。
-                  议、指导。前进中的望月将会在不断变化的各种客观条件下，把握市场动向，熟悉市场环境，完善的饰后服务，让客户真正感受到望月，热情、真诚、诚信的全方位服务。
+                  Đến lịch hẹn, bạn có thể đến phòng khám, gặp bác sĩ bạn chọn
+                  và khám bệnh của bạn
                 </p>
               </span>
             ),
@@ -724,7 +731,7 @@ export const Feature50DataSource = {
         name: "title",
         children: (
           <span>
-            <p>新闻资讯</p>
+            <p>Giới thiệu</p>
           </span>
         ),
         className: "title-h1",
@@ -741,7 +748,7 @@ export const Feature50DataSource = {
           text: {
             children: (
               <span>
-                <p>公司新闻</p>
+                <p>Thông tin</p>
               </span>
             ),
             className: "content7-tag-name",
@@ -756,18 +763,21 @@ export const Feature50DataSource = {
             xs: 24,
             children: (
               <span>
-                <h3>技术</h3>
+                <h3>Avy Shine là gì</h3>
                 <p>
-                  丰富的技术组件，简单组装即可快速搭建金融级应用，丰富的技术组件，简单组装即可快速搭建金融级应用。
+                  Avy Shine là hệ thống đặt lịch khám bệnh dành cho bệnh nhân
+                  khi tham gia khám bênh ở những phòng khám có sử dụng hệ thống
+                  quản lý của chúng tôi
                 </p>
                 <br />
-                <h3>融合</h3>
+                <h3>Mục đích</h3>
                 <p>
-                  解放业务及技术生产力，推动金融服务底层创新，推动金融服务底层创新。解放业务及技术生产力，推动金融服务底层创新。
+                  Giúp bệnh nhân có thể đặt lịch và khám bệnh 1 cách dễ dàng và
+                  tiện lợi nhất
                 </p>
                 <br />
-                <h3>开放</h3>
-                符合金融及要求的安全可靠、高可用、高性能的服务能力，符合金融及要求的安全可靠、高可用、高性能的服务能力。
+                <h3>Mục tiêu</h3>
+                Chúng tôi sẽ phát triển hệ sinh thái Avy Clinic
               </span>
             ),
           },
@@ -789,7 +799,7 @@ export const Feature50DataSource = {
             className: "content7-tag-name",
             children: (
               <span>
-                <p>行业新闻</p>
+                <p>Đội ngũ</p>
               </span>
             ),
           },
@@ -802,18 +812,21 @@ export const Feature50DataSource = {
             xs: 24,
             children: (
               <span>
-                <h3>技术</h3>
+                <h3>Bác sĩ</h3>
                 <p>
-                  丰富的技术组件，简单组装即可快速搭建金融级应用，丰富的技术组件，简单组装即可快速搭建金融级应用。
+                  Những bác sĩ có kinh nghiệm có nhiều năm chữa trị đang làm
+                  việc tại hệ thống của chúng tôi
                 </p>
                 <br />
-                <h3>融合</h3>
+                <h3>Phòng khám</h3>
                 <p>
-                  解放业务及技术生产力，推动金融服务底层创新，推动金融服务底层创新。解放业务及技术生产力，推动金融服务底层创新。
+                  Chuỗi phòng khám uy tín, tin cậy, chất lượng tốt được chúng
+                  tôi tuyển chọn kỹ càng
                 </p>
                 <br />
-                <h3>开放</h3>
-                符合金融及要求的安全可靠、高可用、高性能的服务能力，符合金融及要求的安全可靠、高可用、高性能的服务能力。
+                <h3>Hệ thống</h3>
+                Phần mềm quản lý và đặt lịch nằm trong top 10 ứng dụng nhiều
+                lượt tải nhất trên app store và google play trong năm 2021
               </span>
             ),
           },
@@ -843,15 +856,14 @@ export const Footer10DataSource = {
         className: "block",
         title: {
           className: "logo",
-          children:
-            "https://zos.alipayobjects.com/rmsportal/qqaimmXZVSwAhpL.svg",
+          children: "https://avy.vn/e762ec14138cb11803249ff97a9977df.png",
         },
         childWrapper: {
           className: "slogan",
           children: [
             {
               name: "content0",
-              children: "Animation specification and components of Ant Design.",
+              children: "Avy Shine số 2 không ai số 1",
             },
           ],
         },
@@ -864,7 +876,7 @@ export const Footer10DataSource = {
         title: {
           children: (
             <span>
-              <p>回收项目</p>
+              <p>Thông tin</p>
             </span>
           ),
         },
@@ -877,7 +889,7 @@ export const Footer10DataSource = {
                 <span>
                   <span>
                     <span>
-                      <p>电梯回收</p>
+                      <p>Liên hệ</p>
                     </span>
                   </span>
                 </span>
@@ -888,7 +900,7 @@ export const Footer10DataSource = {
               href: "#",
               children: (
                 <span>
-                  <p>铁铝铜回收</p>
+                  <p>Địa chỉ</p>
                 </span>
               ),
             },
@@ -897,7 +909,7 @@ export const Footer10DataSource = {
               href: "#",
               children: (
                 <span>
-                  <p>不锈钢回收</p>
+                  <p>Chăm sóc khách hàng</p>
                 </span>
               ),
             },
@@ -906,7 +918,7 @@ export const Footer10DataSource = {
               href: "#",
               children: (
                 <span>
-                  <p>工程拆除</p>
+                  <p>Blog</p>
                 </span>
               ),
             },
@@ -915,7 +927,7 @@ export const Footer10DataSource = {
               href: "#",
               children: (
                 <span>
-                  <p>中央空调回收</p>
+                  <p>Câu hỏi</p>
                 </span>
               ),
             },
@@ -927,11 +939,11 @@ export const Footer10DataSource = {
         xs: 24,
         md: 6,
         className: "block",
-        title: { children: "关于" },
+        title: { children: "Nội quy" },
         childWrapper: {
           children: [
             { href: "#", name: "link0", children: "FAQ" },
-            { href: "#", name: "link1", children: "联系我们" },
+            { href: "#", name: "link1", children: "Nội quy sử dụng" },
           ],
         },
       },
@@ -944,7 +956,7 @@ export const Footer10DataSource = {
           children: (
             <span>
               <span>
-                <p>关注我们</p>
+                <p>AVY SHINE</p>
               </span>
             </span>
           ),
@@ -967,11 +979,6 @@ export const Footer10DataSource = {
   copyrightPage: { className: "home-page" },
   copyright: {
     className: "copyright",
-    children: (
-      <span>
-        ©2018 by <a href="https://motion.ant.design">Ant Motion</a> All Rights
-        Reserved
-      </span>
-    ),
+    children: <span>©2021 by Avy Shine Corp Reserved</span>,
   },
 };

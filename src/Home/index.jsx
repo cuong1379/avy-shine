@@ -1,15 +1,15 @@
 /* eslint no-undef: 0 */
 /* eslint arrow-parens: 0 */
-import React from 'react';
-import { enquireScreen } from 'enquire-js';
+import React from "react";
+import { enquireScreen } from "enquire-js";
 
-import Nav3 from './Nav3';
-import Banner1 from './Banner1';
-import Content0 from './Content0';
-import Content5 from './Content5';
-import Content3 from './Content3';
-import Feature5 from './Feature5';
-import Footer1 from './Footer1';
+import Nav3 from "./Nav3";
+import Banner1 from "./Banner1";
+import Content0 from "./Content0";
+import Content5 from "./Content5";
+import Content3 from "./Content3";
+import Feature5 from "./Feature5";
+import Footer1 from "./Footer1";
 
 import {
   Nav30DataSource,
@@ -19,8 +19,8 @@ import {
   Content30DataSource,
   Feature50DataSource,
   Footer10DataSource,
-} from './data.source';
-import './less/antMotionStyle.less';
+} from "./data.source";
+import "./less/antMotionStyle.less";
 
 let isMobile;
 enquireScreen((b) => {

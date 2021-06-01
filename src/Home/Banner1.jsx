@@ -32,7 +32,7 @@ class Banner extends React.PureComponent {
               {typeof title.children === "string" &&
               title.children.match(isImg) ? (
                 <img
-                  src="https://avy.vn/e762ec14138cb11803249ff97a9977df.png"
+                  src="https://is.vnecdn.net/v101/31/65/11/4116531/assets/images/logo/logo-31.png"
                   width="100%"
                   alt="img"
                   style={{ marginBottom: "15px" }}

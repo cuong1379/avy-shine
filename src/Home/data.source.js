@@ -1,10 +1,12 @@
 import React from "react";
+
 export const Nav30DataSource = {
   wrapper: { className: "header3 home-page-wrapper" },
   page: { className: "home-page" },
   logo: {
     className: "header3-logo",
-    children: "https://avy.vn/e762ec14138cb11803249ff97a9977df.png",
+    children:
+      "https://is.vnecdn.net/v101/31/65/11/4116531/assets/images/logo/logo-31.png",
   },
   Menu: {
     className: "header3-menu",
@@ -134,7 +136,7 @@ export const Nav30DataSource = {
                 <span>
                   <span>
                     <span>
-                      <p>Đăng nhập</p>
+                      <a href="/login">Đăng nhập</a>
                     </span>
                   </span>
                 </span>
@@ -453,7 +455,7 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://lh3.googleusercontent.com/proxy/jz8RMU91lLZ65MNrmzIf0Wf0uQGFymEXnR8V2BWxPSO7OqvLvLnLSFF7kjWspCZhybsHMPmFVSQQKvizWIE4P4QhoN30eK1AIUiyTcJMCsGIIBJN86c0et26c7W5_17SiNU4SGyo9uz9NMk",
+              "https://lh3.googleusercontent.com/proxy/M-VVa4GoO9LAmJvWU_KXKa1NuAZX-M9gYmKwfxqurXkRbaLgN6RBKddaYDv8QWfS_ubzvLQdRfNgeA0YM5rIXxaT8GiLIbB6NPIZbWw8TVR18QVAlEV8rAGzC2oM1vY4cOWc4gN8O3DZvG_LyC4q",
           },
           content: { children: "Không gian riêng tư" },
         },
@@ -481,7 +483,7 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://lh3.googleusercontent.com/proxy/oFvz-X8cwtJXPRF9Q3zXd_P8I70MMExZuQ7fero3fVN8s9KGUtSthid0X3bca47ROrgjmLFHO4j5UKzOAzcUtltCiaKNk5jNtkWcDBlgiQLRye-xaA",
+              "https://lh3.googleusercontent.com/proxy/y7GVH2V_Ld0CpHDynn1QpReV-2Fz1yaIfmSp7137pwZZ8kSPG49niv0jGrbLGEWzjhvZt51wuL9sX0fgR9KjevZndtn2avFtXlRTfaSuvM4jiwV7ZX0d1S9TT-2Ozg",
           },
           content: { children: "Lễ tân nhiệt tình" },
         },
@@ -537,7 +539,7 @@ export const Content50DataSource = {
           wrapper: { className: "content5-block-content" },
           img: {
             children:
-              "https://lh3.googleusercontent.com/proxy/yy3Oc9QB4XeC8Ab03j5RnnQTG1e8bncO0Fl0NPOdi1ypA0ZJZW6CNAhzI89xILnn-89j4l_RKv8neG5fp90fgN_37VSo9xpKWF60svzCIck0",
+              "https://huph.edu.vn/sites/huph.edu.vn/files/%E1%BA%A3nh%20b%C3%ACa.JPG",
           },
           content: { children: "Minh bạch" },
         },
@@ -856,7 +858,8 @@ export const Footer10DataSource = {
         className: "block",
         title: {
           className: "logo",
-          children: "https://avy.vn/e762ec14138cb11803249ff97a9977df.png",
+          children:
+            "https://is.vnecdn.net/v101/31/65/11/4116531/assets/images/logo/logo-31.png",
         },
         childWrapper: {
           className: "slogan",

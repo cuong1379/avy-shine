@@ -13,7 +13,7 @@ const Index = () => {
       console.log(res.data);
       message.success("Đăng nhập thành công");
       localStorage.setItem("avy-shine-token", res.data.token);
-      history.push("/");
+      history.push("/booking");
     } catch (error) {
       console.log(error);
       message.error("Đăng nhập thất bại");
@@ -22,7 +22,7 @@ const Index = () => {
 
   useEffect(() => {
     if (localStorage.getItem("avy-shine-token")) {
-      history.push("/");
+      history.push("/booking");
     }
   }, []);
 

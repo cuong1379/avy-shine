@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Select, Input, Radio, Button, List, Avatar } from "antd";
+import axios from "axios";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -19,23 +20,37 @@ const data = [
   },
 ];
 
+const token = localStorage.getItem("avy-shine-token");
+
 const Index = () => {
+  const [spec, setSpec] = useState("Gây mê - điều trị đau");
   const [day, setDay] = useState("8");
 
+  const handleFilterDoctor = async () => {
+    console.log(spec);
+    try {
+      const res = await axios.get(
+        `http://localhost:5555/users/query?speciality=${spec}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("câcsc");
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const onChange = (value) => {
-    console.log(`selected ${value}`);
+    console.log("ádasd", value);
+    setSpec(value);
   };
 
   const handleDayChange = (e) => {
     setDay(e.target.value);
-  };
-
-  const onBlur = () => {
-    console.log("blur");
-  };
-
-  const onFocus = () => {
-    console.log("focus");
   };
 
   const onSearch = (val) => {
@@ -85,8 +100,6 @@ const Index = () => {
             placeholder="Chọn 1 chuyên môn"
             optionFilterProp="children"
             onChange={onChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
             onSearch={onSearch}
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -157,7 +170,11 @@ const Index = () => {
           môn và có lịch rãnh vào ngày của bạn.
         </p>
 
-        <Button style={{ width: "100%" }} type="primary">
+        <Button
+          style={{ width: "100%" }}
+          type="primary"
+          onClick={handleFilterDoctor}
+        >
           Xác nhận
         </Button>
       </div>

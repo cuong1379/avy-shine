@@ -1,30 +1,66 @@
 import React, { useState } from "react";
-import { Select, Input, Radio, Button, List, Avatar } from "antd";
+import { Select, Input, Radio, Button, List, Avatar, Modal, Form } from "antd";
 import axios from "axios";
 
 const { Option } = Select;
 const { TextArea } = Input;
 
-const data = [
-  {
-    title: "Ant Design Title 1",
-  },
-  {
-    title: "Ant Design Title 2",
-  },
-  {
-    title: "Ant Design Title 3",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-];
-
 const token = localStorage.getItem("avy-shine-token");
+
+const layout = {
+  labelCol: {
+    span: 8,
+  },
+  wrapperCol: {
+    span: 16,
+  },
+};
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16,
+  },
+};
 
 const Index = () => {
   const [spec, setSpec] = useState("Gây mê - điều trị đau");
   const [day, setDay] = useState("8");
+
+  const [listDoctor, setListDoctor] = useState();
+  const [currentId, setCurrentId] = useState();
+  const [detailDoctor, setDetailDoctor] = useState({
+    name: "",
+    phone: "",
+    speciality: "",
+    schedule: "",
+    idCard: "",
+    insurance: "",
+    avatar: "",
+    address: "",
+    hospital: "",
+    email: "",
+    age: "",
+    gender: "",
+    facebook: "",
+  });
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleChooseDoctor = async (id) => {
+    setCurrentId(id);
+    try {
+      const res = await axios.get(`http://localhost:5555/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(res.data.user);
+      setDetailDoctor(res.data.user);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsModalVisible(true);
+  };
 
   const handleFilterDoctor = async () => {
     console.log(spec);
@@ -37,15 +73,14 @@ const Index = () => {
           },
         }
       );
-      console.log("câcsc");
-      console.log(res.data);
+      console.log(res.data.user);
+      setListDoctor(res.data.user);
     } catch (error) {
       console.log(error);
     }
   };
 
   const onChange = (value) => {
-    console.log("ádasd", value);
     setSpec(value);
   };
 
@@ -55,6 +90,22 @@ const Index = () => {
 
   const onSearch = (val) => {
     console.log("search:", val);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -105,9 +156,9 @@ const Index = () => {
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
             }
           >
-            <Option value="Gây mê - điều trị đau">Gây mê - điều trị đau</Option>
-            <Option value="Nội Cơ xương khớp">Nội Cơ xương khớp</Option>
-            <Option value="Răng - Hàm - Mặt">Răng - Hàm - Mặt</Option>
+            <Option value="Gây mê điều trị đau">Gây mê điều trị đau</Option>
+            <Option value="Nội cơ xương khớp">Nội cơ xương khớp</Option>
+            <Option value="Răng Hàm Mặt">Răng Hàm Mặt</Option>
             <Option value="Da liễu">Da liễu</Option>
             <Option value="Y học cổ truyền">Y học cổ truyền</Option>
             <Option value="Phục hồi chức năng">Phục hồi chức năng</Option>
@@ -188,20 +239,274 @@ const Index = () => {
       >
         <List
           itemLayout="horizontal"
-          dataSource={data}
+          dataSource={listDoctor}
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
+                onClick={() => handleChooseDoctor(item._id)}
                 avatar={
                   <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                 }
-                title={<p>{item.title}</p>}
-                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                title={<p>{item.name}</p>}
+                description={`Chuyên môn của bác sĩ:  ${item.speciality}`}
               />
             </List.Item>
           )}
         />
       </div>
+      <Modal
+        title="Thông tin chi tiết bác sĩ"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Họ tên:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              {detailDoctor.name}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>SĐT:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              {detailDoctor.phone}
+            </p>
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Chuyên môn:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              {detailDoctor.speciality}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Lịch làm việc trong tuần:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              Thứ {detailDoctor.schedule}
+            </p>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Số CMT:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              {detailDoctor.idCard}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Số thẻ BHYT:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              {detailDoctor.insurance}
+            </p>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Địa chỉ:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              {detailDoctor.address}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Bệnh viện:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              {detailDoctor.hispital}
+            </p>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Email:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              {detailDoctor.email}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Tuổi:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              {detailDoctor.age}
+            </p>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Giới tính:</p>
+            <p style={{ fontWeight: "500", marginLeft: "10px" }}>
+              {detailDoctor.gender}
+            </p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "50%",
+              paddingLeft: "10px",
+              paddingRight: "10px",
+              alignItems: "center",
+            }}
+          >
+            <p>Facebook:</p>
+          </div>
+        </div>
+
+        <h3 style={{ marginTop: "20px", marginBottom: "15px" }}>
+          Đặt lịch khám bệnh
+        </h3>
+
+        <div>
+          <Form
+            {...layout}
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+          >
+            <Form.Item
+              label="Username"
+              name="username"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your username!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item {...tailLayout}>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </Modal>
     </div>
   );
 };

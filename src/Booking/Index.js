@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Select, Input, Radio, Button, List, Avatar, Modal, Form } from "antd";
 import axios from "axios";
 
@@ -25,6 +25,12 @@ const tailLayout = {
 const Index = () => {
   const [spec, setSpec] = useState("Gây mê - điều trị đau");
   const [day, setDay] = useState("8");
+
+  const [profile, setProfile] = useState({
+    _id: "",
+    name: "",
+    phone: "",
+  });
 
   const [listDoctor, setListDoctor] = useState();
   const [currentId, setCurrentId] = useState();
@@ -487,15 +493,19 @@ const Index = () => {
             onFinishFailed={onFinishFailed}
           >
             <Form.Item
-              label="Username"
-              name="username"
+              label="Tiêu đề"
+              name="title"
               rules={[
                 {
                   required: true,
-                  message: "Please input your username!",
+                  message: "Vui lòng nhập tiêu đề!",
                 },
               ]}
             >
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="Thời gian khám dự kiến" name="time">
               <Input />
             </Form.Item>
 

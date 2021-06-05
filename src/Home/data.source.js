@@ -20,7 +20,7 @@ export const Nav30DataSource = {
             {
               children: (
                 <span>
-                  <p>Trang chủ</p>
+                  <a href="/dashboard">Trang chủ</a>
                 </span>
               ),
               name: "text",
@@ -37,7 +37,7 @@ export const Nav30DataSource = {
             {
               children: (
                 <span>
-                  <p>Dịch vụ</p>
+                  <a href="/booking">Đặt lịch nhanh</a>
                 </span>
               ),
               name: "text",
@@ -45,40 +45,40 @@ export const Nav30DataSource = {
           ],
         },
       },
-      {
-        name: "item2",
-        className: "header3-item",
-        children: {
-          href: "#",
-          children: [
-            {
-              children: (
-                <span>
-                  <p>Khám phá</p>
-                </span>
-              ),
-              name: "text",
-            },
-          ],
-        },
-      },
-      {
-        name: "item3",
-        className: "header3-item",
-        children: {
-          href: "#",
-          children: [
-            {
-              children: (
-                <span>
-                  <p>Blog</p>
-                </span>
-              ),
-              name: "text",
-            },
-          ],
-        },
-      },
+      // {
+      //   name: "item2",
+      //   className: "header3-item",
+      //   children: {
+      //     href: "#",
+      //     children: [
+      //       {
+      //         children: (
+      //           <span>
+      //             <p>Khám phá</p>
+      //           </span>
+      //         ),
+      //         name: "text",
+      //       },
+      //     ],
+      //   },
+      // },
+      // {
+      //   name: "item3",
+      //   className: "header3-item",
+      //   children: {
+      //     href: "#",
+      //     children: [
+      //       {
+      //         children: (
+      //           <span>
+      //             <p>Blog</p>
+      //           </span>
+      //         ),
+      //         name: "text",
+      //       },
+      //     ],
+      //   },
+      // },
       {
         name: "item4",
         className: "header3-item",
@@ -125,6 +125,7 @@ export const Nav30DataSource = {
           ],
         },
       },
+
       {
         name: "item6",
         className: "header3-item",

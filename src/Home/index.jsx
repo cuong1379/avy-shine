@@ -39,6 +39,10 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
+    const token = localStorage.getItem("avy-shine-token");
+    if (token) {
+      window.location.replace("/booking");
+    }
     // 适配手机屏幕;
     enquireScreen((b) => {
       this.setState({ isMobile: !!b });

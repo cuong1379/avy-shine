@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Select, Input, Radio, Button, List, Avatar, Modal, Form } from "antd";
 import axios from "axios";
+import Nav3 from "../Home/Nav3";
+
+import { Nav30DataSource } from "../Home/data.source";
+import "../Home/less/antMotionStyle.less";
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -116,30 +120,18 @@ const Index = () => {
 
   return (
     <div style={{ backgroundColor: "#eee", minHeight: "100vh" }}>
-      <div
-        style={{
-          padding: "15px",
-          backgroundColor: "white",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <img
-          src="https://is.vnecdn.net/v101/31/65/11/4116531/assets/images/logo/logo-31.png"
-          alt="picktur"
-          style={{ width: "40px" }}
-        ></img>
-        <h2 style={{ color: "rgb(115 113 113)", marginLeft: "10px" }}>
-          AVY SHINE
-        </h2>
-      </div>
+      <Nav3
+        id="Nav3_0"
+        key="Nav3_0"
+        dataSource={Nav30DataSource}
+        isMobile={true}
+      />
 
       <h2
         style={{ textAlign: "center", marginTop: "15px", marginBottom: "15px" }}
       >
         THÔNG TIN LỊCH ĐẶT
       </h2>
-
       <div
         style={{
           padding: "15px",
@@ -188,7 +180,6 @@ const Index = () => {
 
         <TextArea rows={4} placeholder="VD: Anh đi cùng con trai/ 2 người..." />
       </div>
-
       <div
         style={{
           marginTop: "15px",
@@ -235,7 +226,6 @@ const Index = () => {
           Xác nhận
         </Button>
       </div>
-
       <div
         style={{
           marginTop: "15px",

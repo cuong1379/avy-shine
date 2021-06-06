@@ -92,7 +92,7 @@ export const Nav30DataSource = {
                     <span>
                       <span>
                         <span>
-                          <p>Đội ngũ</p>
+                          <a href="/history">Lịch sử đặt lịch</a>
                         </span>
                       </span>
                     </span>

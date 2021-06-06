@@ -3,7 +3,24 @@ import axios from "axios";
 import Nav3 from "../Home/Nav3";
 import { useHistory } from "react-router-dom";
 
-import { List, Avatar, Rate, Carousel, Card, Timeline } from "antd";
+import {
+  List,
+  Avatar,
+  Rate,
+  Carousel,
+  Card,
+  Timeline,
+  Modal,
+  Steps,
+  Button,
+  message,
+  Select,
+  Descriptions,
+  Form,
+  Input,
+} from "antd";
+
+import "./dashboard.css";
 
 import { Nav30DataSource } from "../Home/data.source";
 import "../Home/less/antMotionStyle.less";
@@ -64,12 +81,94 @@ const contentStyle4 = {
 };
 
 const { Meta } = Card;
+const { Step } = Steps;
+const { Option } = Select;
 
 const index = () => {
   let history = useHistory();
+  const [form] = Form.useForm();
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [current, setCurrent] = useState(0);
+
+  // const [spec, setSpec] = useState("Gây mê - điều trị đau");
+
+  const [currentDoctorId, setCurrentDoctorId] = useState();
+
+  const [listSchedule, setListSchedule] = useState([]);
+
+  const [currentSchedule, setCurrentSchedule] = useState([]);
+
+  const [currentDoctor, setCurrentDoctor] = useState({
+    name: "",
+    age: "",
+    description: "",
+    exp: "",
+    hispital: "",
+    rate: "",
+  });
+
+  const [profile, setProfile] = useState({
+    _id: "",
+    name: "",
+    phone: "",
+  });
+
+  const next = () => {
+    setCurrent(current + 1);
+  };
+
+  const prev = () => {
+    setCurrent(current - 1);
+  };
+
+  const showModal = async (id) => {
+    console.log(id);
+    setCurrentDoctorId(id);
+    try {
+      const res = await axios.get(`http://localhost:5555/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(res.data.user);
+      setCurrentDoctor(res.data.user);
+
+      await handleFetchScheduleByDoctorId(id);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const [listDoctor, setListDoctor] = useState();
   const [listRoom, setListRoom] = useState();
+
+  const handleFetchMe = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5555/users/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("profile", res.data.user);
+      setProfile(res.data.user);
+      form.setFieldsValue({
+        phone: res.data.user.phone,
+        createdBy: res.data.user.name,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleFetchDoctor = async () => {
     try {
@@ -102,6 +201,241 @@ const index = () => {
     }
   };
 
+  const handleFetchScheduleByDoctorId = async (id) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5555/schedules/query?id=${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("fetchSchedule", res.data.schedule);
+      setListSchedule(res.data.schedule);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePreCreateClinic = (schedule) => {
+    setCurrentSchedule(schedule);
+    console.log("schedule hien tai", schedule);
+    form.setFieldsValue({
+      date: schedule.date.substr(0, 10),
+      place: schedule.room.name,
+    });
+    next();
+  };
+
+  const onFinish = async (values) => {
+    const { title, content, ...rest } = values;
+
+    const dataForm = {
+      title,
+      content,
+      doctor: currentDoctor,
+      patient: profile,
+      createdBy: profile._id,
+      phone: profile.phone,
+      schedule: currentSchedule,
+    };
+
+    try {
+      const res = await axios.post(`http://localhost:5555/clinics`, dataForm, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("ket qua call api tao don kham", res.data.clinic);
+      message.success("Đặt lịch khám thành công");
+      setIsModalVisible(false);
+    } catch (error) {
+      console.log(error);
+      message.error("Đặt lịch khám thất bại");
+    }
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const steps = [
+    {
+      title: "Bác sĩ",
+      content: (
+        <>
+          <h3 style={{ marginBottom: "15px", marginTop: "15px" }}>
+            THÔNG TIN BÁC SĨ
+          </h3>
+
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            <p>Họ tên:</p>
+            <p style={{ marginLeft: "10px", color: "green" }}>
+              {currentDoctor.name}
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            <p>Tuôi:</p>
+            <p style={{ marginLeft: "10px", color: "green" }}>
+              {currentDoctor.age}
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            <p>Bệnh viện đang công tác:</p>
+            <p style={{ marginLeft: "10px", color: "green" }}>
+              {currentDoctor.hispital}
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            <p>Mô tả:</p>
+            <p style={{ marginLeft: "10px", color: "green" }}>
+              {currentDoctor.description}
+            </p>
+          </div>
+
+          <Button
+            style={{ marginTop: "10px", marginBottom: "20px" }}
+            type="primary"
+            onClick={() => next()}
+          >
+            Tiếp
+          </Button>
+        </>
+      ),
+    },
+    {
+      title: "Thời gian",
+      content: (
+        <>
+          <h3 style={{ marginBottom: "15px", marginTop: "15px" }}>
+            LỊCH LÀM VIỆC CỦA BÁC SĨ
+          </h3>
+
+          <p style={{ marginBottom: "15px", marginTop: "15px" }}>
+            Bạn có thể chọn 1 lịch trình của bác sĩ để yêu cầu lịch khám
+          </p>
+
+          <div>
+            <List
+              itemLayout="horizontal"
+              dataSource={listSchedule}
+              renderItem={(item) => (
+                <List.Item>
+                  <div onClick={() => handlePreCreateClinic(item)}>
+                    <Descriptions bordered>
+                      <Descriptions.Item label="Thời gian">
+                        {item.date}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Tại phòng khám">
+                        {item.room.name}
+                      </Descriptions.Item>
+                    </Descriptions>
+                  </div>
+                </List.Item>
+              )}
+            />
+          </div>
+          <Button
+            onClick={() => prev()}
+            style={{ marginTop: "10px", marginBottom: "20px" }}
+          >
+            Quay lại
+          </Button>
+        </>
+      ),
+    },
+    {
+      title: "Xác nhận",
+      content: (
+        <>
+          <h3 style={{ marginBottom: "15px", marginTop: "15px" }}>
+            ĐẶT LỊCH YÊU CẦU
+          </h3>
+
+          <Form
+            name="basic"
+            form={form}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+          >
+            <div style={{ margin: "5px", textAlign: "left" }}>Tiêu đề</div>
+            <Form.Item name="title">
+              <Input placeholder="Khám bệnh da liễu"></Input>
+            </Form.Item>
+
+            <div style={{ margin: "5px", textAlign: "left" }}>Nội dung</div>
+            <Form.Item name="content">
+              <Input.TextArea placeholder="Nhập nội dung..." />
+            </Form.Item>
+
+            <div
+              style={{ margin: "5px", textAlign: "left", fontWeight: "500" }}
+            >
+              Thông tin của bạn
+            </div>
+
+            <div style={{ margin: "5px", textAlign: "left" }}>SĐT của bạn</div>
+            <Form.Item name="phone">
+              <Input></Input>
+            </Form.Item>
+
+            <div style={{ margin: "5px", textAlign: "left" }}>Tên của bạn</div>
+            <Form.Item name="createdBy">
+              <Input></Input>
+            </Form.Item>
+
+            <div
+              style={{ margin: "5px", textAlign: "left", fontWeight: "500" }}
+            >
+              Thông tin lịch khám
+            </div>
+            <div style={{ margin: "5px", textAlign: "left" }}>Thời gian</div>
+            <Form.Item name="date">
+              <Input disabled></Input>
+            </Form.Item>
+
+            <div style={{ margin: "5px", textAlign: "left" }}>
+              Tại phòng khám
+            </div>
+            <Form.Item name="place">
+              <Input disabled></Input>
+            </Form.Item>
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Xác nhận
+              </Button>
+
+              <Button onClick={() => prev()} style={{ marginLeft: "20px" }}>
+                Quay lại
+              </Button>
+            </Form.Item>
+          </Form>
+        </>
+      ),
+    },
+  ];
+
   useEffect(() => {
     if (!token) {
       history.push("/login");
@@ -109,6 +443,7 @@ const index = () => {
 
     handleFetchDoctor();
     handleFetchRoom();
+    handleFetchMe();
   }, []);
 
   return (
@@ -159,6 +494,7 @@ const index = () => {
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
+                onClick={() => showModal(item._id)}
                 avatar={<Avatar src={item.avatar} />}
                 title={item.name}
                 description={
@@ -252,6 +588,35 @@ const index = () => {
           </Timeline>
         </div>
       </div>
+      <Modal
+        title="Đặt lịch"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Steps current={current}>
+          {steps.map((item) => (
+            <Step key={item.title} title={item.title} />
+          ))}
+        </Steps>
+        <div className="steps-content">{steps[current].content}</div>
+        {/* <div className="steps-action">
+          {current < steps.length - 1 && (
+            <Button type="primary" onClick={() => next()}>
+              Tiếp
+            </Button>
+          )}
+          {current === steps.length - 1 && (
+            <Button type="primary">Xác nhận</Button>
+          )}
+          {current > 0 && (
+            <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
+              Quay lại
+            </Button>
+          )}
+        </div> */}
+      </Modal>
     </div>
   );
 };

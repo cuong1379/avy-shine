@@ -4,6 +4,7 @@ import Login from "./Login/Index";
 import Booking from "./Booking/Index";
 import Dashboard from "./Dashboard/index";
 import History from "./History/index";
+import ListDoctor from "./ListDoctor/index";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -22,6 +23,9 @@ const App = () => {
         </Route>
         <Route path="/history">
           <History />
+        </Route>
+        <Route path="/listdoctor">
+          <ListDoctor />
         </Route>
         <Route path="/">
           <Home />

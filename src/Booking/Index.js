@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Select, Input, Radio, Button, List, Avatar, Modal, Form } from "antd";
+import {
+  Select,
+  Input,
+  DatePicker,
+  Button,
+  List,
+  Avatar,
+  Modal,
+  Form,
+  message,
+} from "antd";
 import axios from "axios";
 import Nav3 from "../Home/Nav3";
 
@@ -28,7 +38,9 @@ const tailLayout = {
 
 const Index = () => {
   const [spec, setSpec] = useState("Gây mê - điều trị đau");
-  const [day, setDay] = useState("8");
+  const [date, setDate] = useState();
+
+  const [form] = Form.useForm();
 
   const [profile, setProfile] = useState({
     _id: "",
@@ -36,7 +48,7 @@ const Index = () => {
     phone: "",
   });
 
-  const [listDoctor, setListDoctor] = useState();
+  const [listSchedule, setListSchedule] = useState();
   const [currentId, setCurrentId] = useState();
   const [detailDoctor, setDetailDoctor] = useState({
     name: "",
@@ -54,49 +66,84 @@ const Index = () => {
     facebook: "",
   });
 
+  const [detailSchedule, setDetailSchedule] = useState({
+    date: "",
+    note: "",
+  });
+
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const handleChooseDoctor = async (id) => {
+  const handleChooseSchedule = async (id) => {
     setCurrentId(id);
     try {
-      const res = await axios.get(`http://localhost:5555/users/${id}`, {
+      const res = await axios.get(`http://localhost:5555/schedules/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res.data.user);
-      setDetailDoctor(res.data.user);
+      console.log(res.data.schedule);
+      setDetailDoctor(res.data.schedule.doctor);
+      setDetailSchedule(res.data.schedule);
+      form.setFieldsValue({
+        doctor: res.data.schedule.doctor.name,
+        date: res.data.schedule.date,
+        room: res.data.schedule.room.name,
+      });
     } catch (error) {
       console.log(error);
     }
     setIsModalVisible(true);
   };
 
-  const handleFilterDoctor = async () => {
-    console.log(spec);
+  const handleFilterSchedule = async () => {
+    console.log(date);
     try {
       const res = await axios.get(
-        `http://localhost:5555/users/query?speciality=${spec}`,
+        `http://localhost:5555/schedules/query?date=${date}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log(res.data.user);
-      setListDoctor(res.data.user);
+      console.log(res.data.schedule);
+      setListSchedule(res.data.schedule);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const onChange = (value) => {
-    setSpec(value);
+  const handleFetchMe = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5555/users/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("profile", res.data.user);
+      setProfile(res.data.user);
+      form.setFieldsValue({
+        phone: res.data.user.phone,
+        createdBy: res.data.user.name,
+        patient: res.data.user.name,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleDayChange = (e) => {
-    setDay(e.target.value);
+  const onChange = (date, dateString) => {
+    console.log("day la date", dateString);
+    setDate(dateString);
   };
+
+  useEffect(() => {
+    handleFetchMe();
+  }, []);
+
+  // const handleDayChange = (e) => {
+  //   setDay(e.target.value);
+  // };
 
   const onSearch = (val) => {
     console.log("search:", val);
@@ -110,8 +157,34 @@ const Index = () => {
     setIsModalVisible(false);
   };
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const onFinish = async (values) => {
+    const { title, content } = values;
+
+    const dataForm = {
+      title,
+      content,
+      doctor: detailDoctor,
+      patient: profile,
+      createdBy: profile._id,
+      phone: profile.phone,
+      schedule: detailSchedule,
+    };
+
+    console.log("dataForm", dataForm);
+
+    try {
+      const res = await axios.post(`http://localhost:5555/clinics`, dataForm, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("ket qua call api tao don kham", res.data.clinic);
+      message.success("Đặt lịch khám thành công");
+      setIsModalVisible(false);
+    } catch (error) {
+      console.log(error);
+      message.error("Đặt lịch khám thất bại");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -138,11 +211,9 @@ const Index = () => {
           backgroundColor: "white",
         }}
       >
-        <h3 style={{ marginBottom: "15px", marginTop: "15px" }}>
-          1. CHỌN NHU CẦU KHÁM BỆNH
-        </h3>
+        <h3 style={{ marginBottom: "15px", marginTop: "15px" }}>1. GHI CHÚ</h3>
 
-        <div>
+        {/* <div>
           <Select
             showSearch
             style={{ width: "100%" }}
@@ -164,13 +235,13 @@ const Index = () => {
             <Option value="Phẫu thuật thẩm mỹ">Phẫu thuật thẩm mỹ</Option>
             <Option value="Thẩm mỹ">Thẩm mỹ</Option>
           </Select>
-        </div>
-        <p
+        </div> */}
+        {/* <p
           style={{ color: "#f46969", marginTop: "20px", marginBottom: "20px" }}
         >
           Quý khách vui lòng chọn 1 nhu cầu khám bệnh, chúng tôi sẽ chọn lọc
           những bác sĩ giỏi về lĩnh vực này
-        </p>
+        </p> */}
         <p
           style={{ color: "#172d42", marginTop: "20px", marginBottom: "20px" }}
         >
@@ -192,36 +263,26 @@ const Index = () => {
         </h3>
 
         <div>
-          <Radio.Group value={day} onChange={handleDayChange}>
-            <Radio.Button value="2">Thứ 2</Radio.Button>
-            <Radio.Button value="3">Thứ 3</Radio.Button>
-            <Radio.Button value="4">Thứ 4</Radio.Button>
-            <Radio.Button value="5">Thứ 5</Radio.Button>
-            <Radio.Button value="6">Thứ 6</Radio.Button>
-            <Radio.Button value="7">Thứ 7</Radio.Button>
-            <Radio.Button value="8">Chủ nhật</Radio.Button>
-          </Radio.Group>
+          <DatePicker onChange={onChange} style={{ width: "100%" }} />
         </div>
 
-        <p
-          style={{ color: "#f46969", marginTop: "20px", marginBottom: "20px" }}
-        >
+        {/* <p style={{ color: "green", marginTop: "20px", marginBottom: "20px" }}>
           Quý khách vui lòng chọn 1 ngày trong tuần hiện tại để đến khám bệnh.
           (Lưu ý, nếu bạn muốn khám vào tuần sau xin đặt lịch vào thứ 2 tuần
           sau, nếu bạn chọn thứ trước ngày hiện tại thì đơn khám sẽ vô hiệu lực)
-        </p>
+        </p> */}
 
         <p
           style={{ color: "#172d42", marginTop: "20px", marginBottom: "20px" }}
         >
-          Sau khi bấm nút Xác nhận, hệ thống sẽ lọc ra những bác sĩ đúng chuyên
-          môn và có lịch rãnh vào ngày của bạn.
+          Sau khi bấm nút Xác nhận, hệ thống sẽ lọc ra lịch làm việc của những
+          bác sĩ có lịch rãnh vào ngày của bạn.
         </p>
 
         <Button
           style={{ width: "100%" }}
           type="primary"
-          onClick={handleFilterDoctor}
+          onClick={handleFilterSchedule}
         >
           Xác nhận
         </Button>
@@ -235,16 +296,18 @@ const Index = () => {
       >
         <List
           itemLayout="horizontal"
-          dataSource={listDoctor}
+          dataSource={listSchedule}
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
-                onClick={() => handleChooseDoctor(item._id)}
-                avatar={
-                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                onClick={() => handleChooseSchedule(item._id)}
+                avatar={<Avatar src={item.doctor.avatar} />}
+                title={
+                  <p>
+                    {item.doctor.name} tại phòng khám {item.room.name}{" "}
+                  </p>
                 }
-                title={<p>{item.name}</p>}
-                description={`Chuyên môn của bác sĩ:  ${item.speciality}`}
+                description={`Chuyên môn của bác sĩ:  ${item.doctor.speciality}`}
               />
             </List.Item>
           )}
@@ -255,6 +318,7 @@ const Index = () => {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={null}
       >
         <div
           style={{
@@ -276,7 +340,7 @@ const Index = () => {
               {detailDoctor.name}
             </p>
           </div>
-          <div
+          {/* <div
             style={{
               display: "flex",
               width: "50%",
@@ -289,7 +353,7 @@ const Index = () => {
             <p style={{ fontWeight: "500", marginLeft: "10px" }}>
               {detailDoctor.phone}
             </p>
-          </div>
+          </div> */}
         </div>
         <div
           style={{
@@ -320,9 +384,9 @@ const Index = () => {
               alignItems: "center",
             }}
           >
-            <p>Lịch làm việc trong tuần:</p>
+            <p>Ngày làm việc:</p>
             <p style={{ fontWeight: "500", marginLeft: "10px" }}>
-              Thứ {detailDoctor.schedule}
+              {detailSchedule.date}
             </p>
           </div>
         </div>
@@ -369,7 +433,7 @@ const Index = () => {
             alignItems: "center",
           }}
         >
-          <div
+          {/* <div
             style={{
               display: "flex",
               width: "50%",
@@ -382,7 +446,7 @@ const Index = () => {
             <p style={{ fontWeight: "500", marginLeft: "10px" }}>
               {detailDoctor.address}
             </p>
-          </div>
+          </div> */}
           <div
             style={{
               display: "flex",
@@ -392,7 +456,7 @@ const Index = () => {
               alignItems: "center",
             }}
           >
-            <p>Bệnh viện:</p>
+            <p>Bệnh viện từng làm:</p>
             <p style={{ fontWeight: "500", marginLeft: "10px" }}>
               {detailDoctor.hispital}
             </p>
@@ -405,7 +469,7 @@ const Index = () => {
             alignItems: "center",
           }}
         >
-          <div
+          {/* <div
             style={{
               display: "flex",
               width: "50%",
@@ -418,7 +482,7 @@ const Index = () => {
             <p style={{ fontWeight: "500", marginLeft: "10px" }}>
               {detailDoctor.email}
             </p>
-          </div>
+          </div> */}
           <div
             style={{
               display: "flex",
@@ -475,6 +539,7 @@ const Index = () => {
         <div>
           <Form
             {...layout}
+            form={form}
             name="basic"
             initialValues={{
               remember: true,
@@ -485,18 +550,42 @@ const Index = () => {
             <Form.Item
               label="Tiêu đề"
               name="title"
-              rules={[
-                {
-                  required: true,
-                  message: "Vui lòng nhập tiêu đề!",
-                },
-              ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: "Vui lòng nhập tiêu đề!",
+              //   },
+              // ]}
             >
               <Input />
             </Form.Item>
 
-            <Form.Item label="Thời gian khám dự kiến" name="time">
-              <Input />
+            <Form.Item label="Nội dung" name="content">
+              <TextArea />
+            </Form.Item>
+
+            <Form.Item label="Bác sĩ" name="doctor">
+              <Input disabled />
+            </Form.Item>
+
+            <Form.Item label="Bệnh nhân" name="patient">
+              <Input disabled />
+            </Form.Item>
+
+            <Form.Item label="Người tạo đơn" name="createdBy">
+              <Input disabled />
+            </Form.Item>
+
+            <Form.Item label="SĐT người tạo" name="phone">
+              <Input disabled />
+            </Form.Item>
+
+            <Form.Item label="Ngày khám bệnh" name="date">
+              <Input disabled />
+            </Form.Item>
+
+            <Form.Item label="Tại phòng khám" name="room">
+              <Input disabled />
             </Form.Item>
 
             <Form.Item {...tailLayout}>

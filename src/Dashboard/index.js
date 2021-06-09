@@ -3,6 +3,8 @@ import axios from "axios";
 import Nav3 from "../Home/Nav3";
 import { useHistory } from "react-router-dom";
 
+import { AudioOutlined } from "@ant-design/icons";
+
 import {
   List,
   Avatar,
@@ -83,6 +85,7 @@ const contentStyle4 = {
 const { Meta } = Card;
 const { Step } = Steps;
 const { Option } = Select;
+const { Search } = Input;
 
 const index = () => {
   let history = useHistory();
@@ -94,6 +97,9 @@ const index = () => {
   // const [spec, setSpec] = useState("Gây mê - điều trị đau");
 
   const [currentDoctorId, setCurrentDoctorId] = useState();
+
+  const [q, setQ] = useState("");
+  const [spec, setSpec] = useState("");
 
   const [listSchedule, setListSchedule] = useState([]);
 
@@ -113,6 +119,10 @@ const index = () => {
     name: "",
     phone: "",
   });
+
+  const onSearch = (value) => {
+    setQ(value);
+  };
 
   const next = () => {
     setCurrent(current + 1);
@@ -173,7 +183,7 @@ const index = () => {
   const handleFetchDoctor = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5555/users/query?type=doctor&limit=3`,
+        `http://localhost:5555/users/query?type=doctor&q=${q}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -186,6 +196,10 @@ const index = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    handleFetchDoctor();
+  }, [spec, q]);
 
   const handleFetchRoom = async () => {
     try {
@@ -229,7 +243,7 @@ const index = () => {
   };
 
   const onFinish = async (values) => {
-    const { title, content, ...rest } = values;
+    const { title, content } = values;
 
     const dataForm = {
       title,
@@ -341,7 +355,10 @@ const index = () => {
               dataSource={listSchedule}
               renderItem={(item) => (
                 <List.Item>
-                  <div onClick={() => handlePreCreateClinic(item)}>
+                  <div
+                    onClick={() => handlePreCreateClinic(item)}
+                    style={{ cursor: "pointer" }}
+                  >
                     <Descriptions bordered>
                       <Descriptions.Item label="Thời gian">
                         {item.date}
@@ -488,12 +505,26 @@ const index = () => {
           DANH SÁCH BÁC SĨ NỖI BẬT
         </h2>
 
+        <Search
+          placeholder="Tìm kiếm bác sĩ"
+          onSearch={onSearch}
+          enterButton
+          style={{ marginTop: "15px", marginBottom: "15px" }}
+        />
+
         <List
           itemLayout="horizontal"
+          pagination={{
+            onChange: (page) => {
+              console.log(page);
+            },
+            pageSize: 3,
+          }}
           dataSource={listDoctor}
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
+                style={{ cursor: "pointer" }}
                 onClick={() => showModal(item._id)}
                 avatar={<Avatar src={item.avatar} />}
                 title={item.name}
@@ -510,6 +541,19 @@ const index = () => {
             </List.Item>
           )}
         />
+
+        {/* <p
+          style={{
+            textAlign: "center",
+            marginTop: "15px",
+            marginBottom: "15px",
+            color: "red",
+            cursor: "pointer",
+          }}
+          onClick={() => history.push("/listdoctor")}
+        >
+          Xem tất cả danh sách bác sĩ
+        </p> */}
       </div>
 
       <div

@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const { Item, SubMenu } = Menu;
+const token = localStorage.getItem("avy-shine-token");
 
 const Header3 = (props) => {
   let history = useHistory();
@@ -141,6 +142,27 @@ const Header3 = (props) => {
           >
             {navChildren}
           </Menu>
+          {token ? (
+            <div
+              onClick={() => history.push("/login")}
+              style={{
+                marginLeft: "30px",
+                marginTop: "10px",
+              }}
+            >
+              Đăng xuất
+            </div>
+          ) : (
+            <div
+              onClick={() => history.push("/login")}
+              style={{
+                marginLeft: "30px",
+                marginTop: "10px",
+              }}
+            >
+              Đăng nhập
+            </div>
+          )}
         </TweenOne>
       </div>
     </TweenOne>

@@ -22,7 +22,7 @@ const Index = () => {
 
   useEffect(() => {
     if (localStorage.getItem("avy-shine-token")) {
-      history.push("/booking");
+      history.push("/dashboard");
     }
   }, []);
 

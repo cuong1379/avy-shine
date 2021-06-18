@@ -12,7 +12,7 @@ import {
 } from "antd";
 import axios from "axios";
 import Nav3 from "../Home/Nav3";
-
+import { useHistory } from "react-router-dom";
 import { Nav30DataSource } from "../Home/data.source";
 import "../Home/less/antMotionStyle.less";
 
@@ -39,7 +39,7 @@ const tailLayout = {
 const Index = () => {
   const [spec, setSpec] = useState("Gây mê - điều trị đau");
   const [date, setDate] = useState();
-
+  let history = useHistory();
   const [form] = Form.useForm();
 
   const [profile, setProfile] = useState({
@@ -138,6 +138,9 @@ const Index = () => {
   };
 
   useEffect(() => {
+    if (!token) {
+      history.push("/login");
+    }
     handleFetchMe();
   }, []);
 

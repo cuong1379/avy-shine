@@ -144,11 +144,11 @@ const index = () => {
       console.log(res.data.user);
       setCurrentDoctor(res.data.user);
 
-      await handleFetchScheduleByDoctorId(id);
+      handleFetchScheduleByDoctorId(id);
+      setIsModalVisible(true);
     } catch (error) {
       console.log(error);
     }
-    setIsModalVisible(true);
   };
 
   const handleOk = () => {
@@ -183,7 +183,7 @@ const index = () => {
   const handleFetchDoctor = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5555/users/query?type=doctor&q=${q}`,
+        `http://localhost:5555/users/query?type=doctor&q=${q}&speciality=${spec}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -218,7 +218,7 @@ const index = () => {
   const handleFetchScheduleByDoctorId = async (id) => {
     try {
       const res = await axios.get(
-        `http://localhost:5555/schedules/query?id=${id}`,
+        `http://localhost:5555/schedules/query?doctorId=${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -272,6 +272,24 @@ const index = () => {
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+  };
+
+  const onChange = async (values) => {
+    console.log("ádasdasd", values);
+    try {
+      const res = await axios.get(
+        `http://localhost:5555/users/query?type=doctor&speciality=${values}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("ket qua", res.data.user);
+      setListDoctor(res.data.user);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const steps = [
@@ -504,6 +522,31 @@ const index = () => {
         >
           DANH SÁCH BÁC SĨ NỖI BẬT
         </h2>
+
+        <div>
+          <Select
+            showSearch
+            style={{ width: "100%" }}
+            placeholder="Chọn 1 chuyên môn"
+            optionFilterProp="children"
+            onChange={onChange}
+            onSearch={onSearch}
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            <Option value="Gây mê điều trị đau">Gây mê điều trị đau</Option>
+            <Option value="Nội cơ xương khớp">Nội cơ xương khớp</Option>
+            <Option value="Răng Hàm Mặt">Răng Hàm Mặt</Option>
+            <Option value="Da liễu">Da liễu</Option>
+            <Option value="Y học cổ truyền">Y học cổ truyền</Option>
+            <Option value="Phục hồi chức năng">Phục hồi chức năng</Option>
+            <Option value="Hoạt động trị liệu">Hoạt động trị liệu</Option>
+            <Option value="Phẫu thuật thẩm mỹ">Phẫu thuật thẩm mỹ</Option>
+            <Option value="Thẩm mỹ">Thẩm mỹ</Option>
+            <Option value="">Tất cả</Option>
+          </Select>
+        </div>
 
         <Search
           placeholder="Tìm kiếm bác sĩ"

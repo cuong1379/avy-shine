@@ -108,14 +108,16 @@ const index = () => {
           dataSource={listClinic}
           renderItem={(item) => (
             <List.Item>
-              <div>
-                <h3>Tiêu đề: {item.title}</h3>
-                <p>Mã: {item.code}</p>
-                <p>Nội dung: {item.content}</p>
-                <p>Bác sĩ khám: {item.doctor.name}</p>
-                <p>Bệnh nhân: {item.patient.name}</p>
-                <p>Thời gian: {item.schedule.date.substr(0, 10)}</p>
-              </div>
+              {item.schedule && (
+                <div>
+                  <h3>Tiêu đề: {item.title}</h3>
+                  <p>Mã: {item.code}</p>
+                  <p>Nội dung: {item.content}</p>
+                  <p>Bác sĩ khám: {item.doctor.name}</p>
+                  <p>Bệnh nhân: {item.patient.name}</p>
+                  <p>Thời gian: {item.schedule.date.substr(0, 10)}</p>
+                </div>
+              )}
             </List.Item>
           )}
         />

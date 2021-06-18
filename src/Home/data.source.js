@@ -104,49 +104,49 @@ export const Nav30DataSource = {
           ],
         },
       },
-      {
-        name: "item5",
-        className: "header3-item",
-        children: {
-          href: "#",
-          children: [
-            {
-              children: (
-                <span>
-                  <span>
-                    <span>
-                      <p>Giới thiệu</p>
-                    </span>
-                  </span>
-                </span>
-              ),
-              name: "text",
-            },
-          ],
-        },
-      },
+      // {
+      //   name: "item5",
+      //   className: "header3-item",
+      //   children: {
+      //     href: "#",
+      //     children: [
+      //       {
+      //         children: (
+      //           <span>
+      //             <span>
+      //               <span>
+      //                 <p>Giới thiệu</p>
+      //               </span>
+      //             </span>
+      //           </span>
+      //         ),
+      //         name: "text",
+      //       },
+      //     ],
+      //   },
+      // },
 
-      {
-        name: "item6",
-        className: "header3-item",
-        children: {
-          href: "#",
-          children: [
-            {
-              children: (
-                <span>
-                  <span>
-                    <span>
-                      <a href="/login">Đăng nhập</a>
-                    </span>
-                  </span>
-                </span>
-              ),
-              name: "text",
-            },
-          ],
-        },
-      },
+      // {
+      //   name: "item6",
+      //   className: "header3-item",
+      //   children: {
+      //     href: "#",
+      //     children: [
+      //       {
+      //         children: (
+      //           <span>
+      //             <span>
+      //               <span>
+      //                 <a href="/login">Đăng nhập</a>
+      //               </span>
+      //             </span>
+      //           </span>
+      //         ),
+      //         name: "text",
+      //       },
+      //     ],
+      //   },
+      // },
     ],
   },
   mobileMenu: { className: "header3-mobile-menu" },

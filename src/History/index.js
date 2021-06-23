@@ -109,7 +109,7 @@ const index = () => {
           renderItem={(item) => (
             <List.Item>
               {item.schedule && (
-                <div>
+                <div style={{ backgroundColor: "gray" }}>
                   <h3>Tiêu đề: {item.title}</h3>
                   <p>Mã: {item.code}</p>
                   <p>Nội dung: {item.content}</p>

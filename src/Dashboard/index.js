@@ -375,13 +375,19 @@ const index = () => {
                 <List.Item>
                   <div
                     onClick={() => handlePreCreateClinic(item)}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer", backgroundColor: "gray" }}
                   >
                     <Descriptions bordered>
-                      <Descriptions.Item label="Thời gian">
+                      <Descriptions.Item
+                        label="Thời gian"
+                        style={{ backgroundColor: "gray" }}
+                      >
                         {item.date}
                       </Descriptions.Item>
-                      <Descriptions.Item label="Tại phòng khám">
+                      <Descriptions.Item
+                        label="Tại phòng khám"
+                        style={{ backgroundColor: "gray" }}
+                      >
                         {item.room.name}
                       </Descriptions.Item>
                     </Descriptions>
